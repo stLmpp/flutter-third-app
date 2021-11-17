@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:third_app/mock/meals_mock.dart';
 import 'package:third_app/model/category.dart';
 
 class CategoryMeals extends StatelessWidget {
@@ -13,12 +14,17 @@ class CategoryMeals extends StatelessWidget {
     if (category is! Category) {
       throw ErrorDescription('Argument is not of type "Category"');
     }
+    final meals = mealsMock.where((meal) => meal.idCategories.contains(category.id)).toList();
     return Scaffold(
       appBar: AppBar(
         title: Text(category.title),
       ),
-      body: const Center(
-        child: Text('Recipes'),
+      body: ListView.builder(
+        itemCount: meals.length,
+        itemBuilder: (context, index) {
+          final meal = meals[index];
+          return Text(meal.name);
+        },
       ),
     );
   }
