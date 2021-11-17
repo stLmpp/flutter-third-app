@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:third_app/mock/meals_mock.dart';
 import 'package:third_app/model/category.dart';
+import 'package:third_app/widget/meal_item.dart';
 
 class CategoryMeals extends StatelessWidget {
   const CategoryMeals({Key? key}) : super(key: key);
@@ -23,7 +24,7 @@ class CategoryMeals extends StatelessWidget {
         itemCount: meals.length,
         itemBuilder: (context, index) {
           final meal = meals[index];
-          return Text(meal.name);
+          return MealItem(meal: meal);
         },
       ),
     );
