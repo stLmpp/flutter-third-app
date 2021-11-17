@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:third_app/model/meal.dart';
 import 'package:third_app/model/meal_affordability_enum.dart';
 import 'package:third_app/model/meal_complexity_enum.dart';
+import 'package:third_app/widget/meal_details.dart';
 
 class MealItem extends StatelessWidget {
   const MealItem({
@@ -11,14 +12,16 @@ class MealItem extends StatelessWidget {
 
   final Meal meal;
 
-  void _selectMeal() {}
-
   String get _affordability {
     switch (meal.affordability) {
-      case MealAffordabilityEnum.affordable: return 'Affordable';
-      case MealAffordabilityEnum.pricey: return 'Pricey';
-      case MealAffordabilityEnum.luxurious: return 'Luxurious';
-      default: return 'Unknown';
+      case MealAffordabilityEnum.affordable:
+        return 'Affordable';
+      case MealAffordabilityEnum.pricey:
+        return 'Pricey';
+      case MealAffordabilityEnum.luxurious:
+        return 'Luxurious';
+      default:
+        return 'Unknown';
     }
   }
 
@@ -38,7 +41,9 @@ class MealItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: _selectMeal,
+        onTap: () {
+          Navigator.of(context).pushNamed(MealDetails.routeName, arguments: meal);
+        },
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
