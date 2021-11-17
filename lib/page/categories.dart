@@ -22,8 +22,7 @@ class Categories extends StatelessWidget {
         children: categoriesMock
             .map(
               (category) => CategoryItem(
-                title: category.title,
-                color: category.color,
+                category: category,
                 key: ValueKey(category.id),
               ),
             )
