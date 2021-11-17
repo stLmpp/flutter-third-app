@@ -30,9 +30,9 @@ class MyApp extends StatelessWidget {
               ),
             ),
       ),
-      home: const Categories(),
       routes: {
-        '/category-meals': (context) => const CategoryMeals(),
+        '/': (_) => const Categories(),
+        CategoryMeals.routeName: (context) => const CategoryMeals(),
       },
     );
   }

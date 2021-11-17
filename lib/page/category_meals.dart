@@ -22,4 +22,6 @@ class CategoryMeals extends StatelessWidget {
       ),
     );
   }
+
+  static const routeName = '/category-meals';
 }
