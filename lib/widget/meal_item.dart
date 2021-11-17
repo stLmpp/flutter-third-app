@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:third_app/model/meal.dart';
+import 'package:third_app/model/meal_affordability_enum.dart';
+import 'package:third_app/model/meal_complexity_enum.dart';
 
 class MealItem extends StatelessWidget {
   const MealItem({
@@ -10,6 +12,28 @@ class MealItem extends StatelessWidget {
   final Meal meal;
 
   void _selectMeal() {}
+
+  String get _affordability {
+    switch (meal.affordability) {
+      case MealAffordabilityEnum.affordable: return 'Affordable';
+      case MealAffordabilityEnum.pricey: return 'Pricey';
+      case MealAffordabilityEnum.luxurious: return 'Luxurious';
+      default: return 'Unknown';
+    }
+  }
+
+  String get _complexity {
+    switch (meal.complexity) {
+      case MealComplexityEnum.simple:
+        return 'Simple';
+      case MealComplexityEnum.challenging:
+        return 'Challenging';
+      case MealComplexityEnum.hard:
+        return 'Hard';
+      default:
+        return 'Unknown';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +56,56 @@ class MealItem extends StatelessWidget {
                     ),
                     child: Image.network(
                       meal.imageUrl,
-                      height: 250,
+                      height: 300,
                       width: double.infinity,
                       fit: BoxFit.cover,
                     ),
                   ),
+                  Positioned(
+                    bottom: 20,
+                    right: 20,
+                    child: Container(
+                      width: 300,
+                      color: Colors.black54,
+                      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                      child: Text(
+                        meal.name,
+                        style: const TextStyle(fontSize: 26, color: Colors.white),
+                        softWrap: true,
+                        overflow: TextOverflow.fade,
+                      ),
+                    ),
+                  ),
                 ],
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Row(
+                      children: [
+                        const Icon(Icons.schedule),
+                        const SizedBox(width: 6),
+                        Text('${meal.duration} Minutes'),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        const Icon(Icons.work),
+                        const SizedBox(width: 6),
+                        Text(_complexity),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        const Icon(Icons.attach_money),
+                        const SizedBox(width: 6),
+                        Text(_affordability),
+                      ],
+                    )
+                  ],
+                ),
               ),
             ],
           ),
