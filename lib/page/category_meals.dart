@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:third_app/mock/meals_mock.dart';
 import 'package:third_app/model/category.dart';
+import 'package:third_app/model/meal.dart';
 import 'package:third_app/widget/meal_item.dart';
 
-class CategoryMeals extends StatelessWidget {
+class CategoryMeals extends StatefulWidget {
   const CategoryMeals({Key? key}) : super(key: key);
+
+  @override
+  State<CategoryMeals> createState() => _CategoryMealsState();
+
+  static const routeName = '/category-meals';
+}
+
+class _CategoryMealsState extends State<CategoryMeals> {
+  final List<Meal> _meals = mealsMock;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +25,7 @@ class CategoryMeals extends StatelessWidget {
     if (category is! Category) {
       throw ErrorDescription('Argument is not of type "Category"');
     }
-    final meals = mealsMock.where((meal) => meal.idCategories.contains(category.id)).toList();
+    final meals = _meals.where((meal) => meal.idCategories.contains(category.id)).toList();
     return Scaffold(
       appBar: AppBar(
         title: Text(category.title),
@@ -24,11 +34,16 @@ class CategoryMeals extends StatelessWidget {
         itemCount: meals.length,
         itemBuilder: (context, index) {
           final meal = meals[index];
-          return MealItem(meal: meal);
+          return MealItem(
+            meal: meal,
+            remove: () {
+              setState(() {
+                _meals.removeWhere((mealRemove) => mealRemove.id == meal.id);
+              });
+            },
+          );
         },
       ),
     );
   }
-
-  static const routeName = '/category-meals';
 }

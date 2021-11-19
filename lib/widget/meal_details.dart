@@ -45,12 +45,15 @@ class MealDetails extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              height: 300,
-              width: double.infinity,
-              child: Image.network(
-                meal.imageUrl,
-                fit: BoxFit.cover,
+            Hero(
+              tag: meal.id,
+              child: SizedBox(
+                height: 300,
+                width: double.infinity,
+                child: Image.network(
+                  meal.imageUrl,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             _buildSectionTitle(context, 'Ingredients'),
@@ -94,6 +97,12 @@ class MealDetails extends StatelessWidget {
             )
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.delete),
+        onPressed: () {
+          Navigator.of(context).pop(meal.id);
+        },
       ),
     );
   }

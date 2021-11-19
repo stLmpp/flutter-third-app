@@ -8,9 +8,11 @@ class MealItem extends StatelessWidget {
   const MealItem({
     Key? key,
     required this.meal,
+    required this.remove,
   }) : super(key: key);
 
   final Meal meal;
+  final void Function() remove;
 
   String get _affordability {
     switch (meal.affordability) {
@@ -41,8 +43,11 @@ class MealItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: () {
-          Navigator.of(context).pushNamed(MealDetails.routeName, arguments: meal);
+        onTap: () async {
+          final id = await Navigator.of(context).pushNamed(MealDetails.routeName, arguments: meal);
+          if (id != null) {
+            remove();
+          }
         },
         child: Card(
           shape: RoundedRectangleBorder(
@@ -54,16 +59,19 @@ class MealItem extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      topRight: Radius.circular(15),
-                    ),
-                    child: Image.network(
-                      meal.imageUrl,
-                      height: 300,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
+                  Hero(
+                    tag: meal.id,
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(15),
+                        topRight: Radius.circular(15),
+                      ),
+                      child: Image.network(
+                        meal.imageUrl,
+                        height: 300,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   Positioned(
