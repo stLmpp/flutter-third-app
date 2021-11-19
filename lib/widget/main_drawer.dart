@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:third_app/page/settings.dart';
 
 class MainDrawer extends StatelessWidget {
   const MainDrawer({Key? key}) : super(key: key);
@@ -6,6 +7,7 @@ class MainDrawer extends StatelessWidget {
   Widget _buildListTile({
     required String title,
     required IconData icon,
+    required void Function() onTap,
   }) {
     return ListTile(
       leading: Icon(icon, size: 26),
@@ -16,7 +18,7 @@ class MainDrawer extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
-      onTap: () {},
+      onTap: onTap,
     );
   }
 
@@ -45,10 +47,16 @@ class MainDrawer extends StatelessWidget {
           _buildListTile(
             title: 'Meals',
             icon: Icons.restaurant,
+            onTap: () {
+              Navigator.of(context).pushNamed('/');
+            },
           ),
           _buildListTile(
             title: 'Settings',
             icon: Icons.settings,
+            onTap: () {
+              Navigator.of(context).pushNamed(Settings.routeName);
+            },
           ),
         ],
       ),
