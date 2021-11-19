@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:third_app/page/categories.dart';
 import 'package:third_app/page/favorites.dart';
 import 'package:third_app/page/tabs/tab_selected.dart';
+import 'package:third_app/widget/main_drawer.dart';
 
 class Tabs extends StatefulWidget {
   const Tabs({Key? key}) : super(key: key);
@@ -24,6 +25,7 @@ class _TabsState extends State<Tabs> {
       appBar: AppBar(
         title: Text(tabSelected.title),
       ),
+      drawer: const MainDrawer(),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
         unselectedItemColor: Colors.white,
